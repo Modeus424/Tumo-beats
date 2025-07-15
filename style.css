@@ -1,14 +1,23 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+
 html{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #6d00a7;
+    background-color: #7d31a6;
     height: 100dvh;
     }
     body{
+
     display: grid;
     grid-template-areas:
-    'title title file-input'
+    'title title open'
     'beats beats beats'
     'scrub scrub scrub'
     'previous playpause next'
@@ -18,28 +27,61 @@ html{
     background-color: #7009af;
     width: 600px;
     height: 600px;
+    border-radius : 50px;
+    overflow: hidden;
+
+    }
+
+    button{
+        background-color : transparent;
+        border: none;
+        cursor: pointer;
+    }
+    button:active{
+    scale: 0.9;
+
     }
     
     #title {
-    color: aliceblue;
+    color: rgb(17, 221, 75);
     margin: 0%;
     grid-area: title;
+    font-size: 35px;
     }
     
-    #file-input {
+    #open-input {
     grid-area: open;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+   
     }
+
+    #file-input{
+        position:absolute;
+        opacity: 0;
+        inset: 0;
+    }
+
     
     #beats {
     grid-area: beats;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     }
     
     #scrub-input {
+       display: flex;
+        position: relative;
     grid-area: scrub;
     }
     
     #volume-input {
     grid-area: file-input;
+    position: relative;
     }
     
     #previous-button {
@@ -50,14 +92,39 @@ html{
     grid-area: playpause;
     }
     
+    #icon-play {
+ 
+    }
+
+    #icon-pause {
+
+        display: none;
+    }
+
     #next-button {
     grid-area: next;
     }
     
     #volume-input {
+        display: flex;
     grid-area: volume-input;
     }
     
     #tumo {
     grid-area: tumo;
     }
+    
+  .range-bar{
+    position: absolute;
+    inset: 0;
+    background-color: rgb(224, 225, 225);
+
+    pointer-events: none;
+    transform: scaleX(0.5);
+    transform-origin: left;
+
+  }
+  input[type = "range"] {
+    flex: 1;
+    opacity: 0;
+  }
