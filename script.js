@@ -1,10 +1,15 @@
 window.onload =  async function(){
 
+
+//caarregar o service worker
+if ("serviceWorker"){
+    navigator.serviceWorker.register("service-worker.js")
+}
+
+
  //Carregar dados da internet (data.json)
  let request = await fetch("data.json");
 let audioData =  await request.json();
-
-
 
 
 
@@ -23,8 +28,7 @@ let audioData =  await request.json();
     
 
     let audio = document.querySelector("Audio")
-    let currentMusic = 0;
-    console.log(audioData [currentMusic]);    
+    let currentMusic = 0;  
     
     //funções
 
@@ -41,6 +45,7 @@ let audioData =  await request.json();
     function playAudio( ){
 
         audio.src = audioData[currentMusic].url
+        changetitle(audioData[currentMusic].title);
         audio.play()
     }
     function pauseAudio(){
@@ -48,7 +53,12 @@ let audioData =  await request.json();
     }
     
     previousButton.onclick = function() {
-        console.log("previous button cliked");
+        currentMusic--;
+        if(currentMusic < 0){
+            currentMusic = audioData.length - 1;
+        }
+        playAudio();
+        
     }
     playButton.onclick = function(){
         if (audio.paused){
@@ -70,22 +80,56 @@ let audioData =  await request.json();
         pauseIcon.style.display = "none";
 
     }
+    audio.ontimeupdate = function(){
+        let bar = scrubInput.querySelector(".range-bar");
+        let value = (audio.currentTime / audio.duration) * 100;
+
+        updateInputBar(value, bar);
+
+    }
+
+     function scrubAudio(value){
+        if (!audio.src)  return;
+        audio.currentTime = audio.duration * (value / 100);
+     }
 
     nextButton.onclick = function() {
-        console.log("next button clicked");
+        currentMusic++;
+        if(currentMusic>= audioData.length){
+            currentMusic = 0;
+        }
+        playAudio();
+
+        
     }
     scrubInput.querySelector("input").oninput = function(event) {
         let bar = scrubInput.querySelector(".range-bar");
+        let value = event.target.value;
+        scrubAudio(value);
         updateInputBar(event.target.value, bar);
+        
     }
     volumeButton.querySelector("input").oninput = function(event) {
         let bar = volumeButton.querySelector(".range-bar");
-        updateInputBar(event.target.value, bar);
+        let value = event.target.value;
+        audio.volume = value/100;
+        updateInputBar(value, bar);
 
     }
-    fileinput.oninput = function(){
-        console.log("aqui!");
-    }
+    fileinput.oninput = function(event) {
+
+        let file = Array.from(fileinput.files)[0];
+        let reader = new FileReader();
+        reader.onload = function() {
+        audioData.push({
+        title: file.name,
+        url: reader.result
+        });
+        }
+        if (file) {
+        reader.readAsDataURL(file);
+        }
+     }
 
 }
     

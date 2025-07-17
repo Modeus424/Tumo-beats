@@ -52,6 +52,7 @@ html{
     margin: 0%;
     grid-area: title;
     font-size: 35px;
+     
     }
     
     #open-input {
@@ -131,5 +132,5 @@ html{
   }
   input[type = "range"] {
     flex: 1;
-    opacity: 0.5;
+    opacity: 0;
   }
