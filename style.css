@@ -25,8 +25,8 @@ html{
     grid-template-rows: 64px auto 32px auto 32px;
     grid-template-columns: 33% auto 33%;
     background-color: #7009af;
-    width: 600px;
-    height: 600px;
+    width: 600px´;
+    height: 800px;
     border-radius : 50px;
     overflow: hidden;
 
@@ -49,7 +49,7 @@ html{
     
     #title {
     color: rgb(93, 4, 103);
-    margin: 0%;
+    margin: 2%;
     grid-area: title;
     font-size: 35px;
      
@@ -76,23 +76,37 @@ html{
     display: flex;
     justify-content: center;
     align-items: center;
+    
 
     }
+
+    #beats svg {
+        stroke:black;
+        stroke-width: 1.5px
+
+    } 
     
     #scrub-input {
        display: flex;
         position: relative;
     grid-area: scrub;
+    border-radius : 50px;
     }
     
     #volume-input {
     grid-area: file-input;
     position: relative;
+    border-radius : 50px;
     }
+    
+    
+    
     
     #previous-button {
     grid-area: previous;
     }
+    
+    
     
     #play-pause {
     grid-area: playpause;
@@ -114,6 +128,8 @@ html{
     #volume-input {
         display: flex;
     grid-area: volume-input;
+     
+    
     }
     
     #tumo {
@@ -123,14 +139,16 @@ html{
   .range-bar{
     position: absolute;
     inset: 0;
-    background-color: rgb(224, 225, 225);
-
+   background-color: rgb(113, 113, 113);
+    border-radius : 50px;
     pointer-events: none;
     transform: scaleX(0.5);
     transform-origin: left;
+    opacity: 1;
 
   }
   input[type = "range"] {
     flex: 1;
     opacity: 0;
+    
   }
